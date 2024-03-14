@@ -3,4 +3,15 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+
+  .chevronControllers {
+    display: flex;
+    justify-content: space-between;
+    font-size: 32px;
+    margin-top: 64px;
+
+    .disabled {
+      color: #1d1d1d;
+    }
+  }
 }
