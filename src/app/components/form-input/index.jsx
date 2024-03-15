@@ -1,6 +1,6 @@
 import styles from "./input-form.module.scss";
 
-export default function FormInput({type, label, value, onChange}) {
+export default function FormInput({name = '', type, label, value, onChange}) {
   const handleChange = (e) => {
     onChange(e, label);
   }
@@ -10,9 +10,9 @@ export default function FormInput({type, label, value, onChange}) {
       <label className={styles.labelForm} htmlFor="">{label}</label>
       <input 
         className={styles.inputForm} 
-        name={label} 
+        name={name ? name : label} 
         type={type} 
-        placeholder={label}
+        placeholder={name ? name : label}
         value={value}
         onChange={handleChange}
       />

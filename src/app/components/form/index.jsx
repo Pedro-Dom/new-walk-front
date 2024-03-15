@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import FormInput from "@/app/components/form-input";
+import FormSelect from '../form-select';
 import styles from "./form.module.scss";
 
 export default function Form() {
@@ -11,9 +12,10 @@ export default function Form() {
   const [formData, setFormData] = useState({
     Nome: '',
     Telefone: '',
+    Idade: '',
+    Casado: '',
+    Filhos: '',
     Batizado: '',
-    Email: '',
-    Casada: '',
     Igreja: '', 
     Jovem: ''
   });
@@ -21,7 +23,7 @@ export default function Form() {
   let formFields;
 
   switch(section) {
-    case  0:
+    case 0:
       formFields = [
         {
           label: 'Nome',
@@ -31,21 +33,28 @@ export default function Form() {
           label: 'Telefone',
           type: 'number'
         },
+        {
+          label: 'Idade',
+          type: 'number'
+        },
       ];
       break;
     case 1:
       formFields = [
         {
-          label: 'Batizado',
-          type: 'text'
+          name: 'Casado',
+          label: 'É casado(a)?',
+          type: 'select'
         },
         {
-          label: 'Email',
-          type: 'text'
+          name: 'Filhos',
+          label: 'Possui filhos?',
+          type: 'select'
         },
         {
-          label: 'Casada',
-          type: 'text'
+          name: 'Batizado',
+          label: 'É batizado(a)?',
+          type: 'select'
         }
       ];
       break;
@@ -65,6 +74,7 @@ export default function Form() {
 
   const handleInputChange = (e) => {
     const { value, name } = e.target;
+
     setFormData(prevFormData => ({
       ...prevFormData,
       [name]: value
@@ -72,19 +82,59 @@ export default function Form() {
   }
 
   const renderForms = () => {
-    return formFields.map((field, f) => (
+    return formFields.map((field, f) => {
+      if (field.type == 'select') {
+        return renderSelect(field, f);
+      } else {
+        return renderInput(field, f);
+      }
+    });
+  }
+
+  const renderInput = (field, f) => {
+    return (
       <FormInput 
         key={f} 
         type={field.type} 
+        name={field.name ? field.name : undefined}
         label={field.label}
         value={formData[field.label]}
         onChange={handleInputChange}
       />
-    ));
+    )
   }
 
-  const saveData = () => {
-    console.log(formData);
+  const renderSelect = (field, f) => {
+    return (
+      <FormSelect 
+        key={f} 
+        label={field.label}
+        value={formData[field.name]}
+        onChange={handleInputChange}
+        name={field.name ? field.name : undefined}
+      />
+    )
+  }
+
+  const saveData = async () => {
+    try {
+      console.log(formData)
+      const response = await fetch('URL_DA_API', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData), // Envia os dados do formulário no estado formData
+      });
+  
+      if (response.ok) {
+        console.log('Dados salvos com sucesso!');
+      } else {
+        console.error('Erro ao salvar os dados.');
+      }
+    } catch (error) {
+      console.error('Erro ao realizar a requisição:', error);
+    }
   }
 
   const beforeSection = () => {

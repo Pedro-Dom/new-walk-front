@@ -2,10 +2,13 @@
   padding-inline: 24px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 24px;
 
   .chevronControllers {
     display: flex;
+    width: 100%;
+    max-width: 360px;
     justify-content: space-between;
     font-size: 32px;
     margin-top: 64px;
