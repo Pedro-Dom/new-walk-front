@@ -1,9 +1,10 @@
-.inputWithLabel {
+.selectWithLabel {
   width: 100%;
   max-width: 620px;
   display: flex;
   flex-direction: column;
   gap: 4px;
+  position: relative;
 
   .labelForm {
     color: #f0f0f0;
@@ -11,27 +12,32 @@
     font-size: 14px;
   }
 
-  .inputForm {
+  .selectForm {
     width: 100%;
     height: 40px;
     padding: 4px 12px;
-    
     background-color: transparent;
-    // color: #dadae4;
-    // border: 1px solid #171f38;
     color: #f0f0f0;
     border: 1px solid #252528;
     border-radius: 8px;
-
     font-size: 14px;
+    -webkit-appearance: none; /* Para navegadores WebKit */
+    -moz-appearance: none; /* Para navegadores Gecko */
+    appearance: none; /* Para outros navegadores */
 
-    &::placeholder {
-      // color: #4a5576;
-      color: #8a8a93;
+    &:focus {
+      color: #f0f0f0;
+      background-color: #09090B;
     }
 
     &:hover, &:focus-visible {
       border-color: #dadae4;
     }
+  }
+
+  .chevronSelect {
+    position: absolute;
+    right: 11px;
+    top: 34px;
   }
 }
