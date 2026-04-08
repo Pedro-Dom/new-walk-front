@@ -2,9 +2,13 @@
 
 import { useState } from 'react';
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
+
 import FormInput from "@/app/components/form-input";
-import FormSelect from '../form-select';
+import FormSelect from '@/app/components/form-select';
+import Button from '@/app/components/button';
+
 import styles from "./form.module.scss";
+
 
 export default function Form() {
 
@@ -144,17 +148,25 @@ export default function Form() {
 
   const nextSection = () => {
     if (section == 2) return;
-    saveData();
+    //saveData();
     setSection(section + 1);
   }
 
   return (
     <main className={styles.formTemplate}>
       {renderForms()}
-      <div className={styles.chevronControllers}>
+
+      {section != 0 ? (
+        <div className={styles.chevronControllers}>
         <FaAngleLeft onClick={beforeSection} className={!section ? styles.disabled : ''}/>
         <FaAngleRight onClick={nextSection} className={section == 2 ? styles.disabled : ''}/>
       </div>
+      ) : (
+        <Button
+          type='submit'
+          text='Finalizar'
+        />
+      )}
     </main>
   );
 }
