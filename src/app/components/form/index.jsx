@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from 'react';
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
+import { FaAngleLeft, FaAngleRight, FaCheck } from "react-icons/fa6";
 
 import FormInput from "@/app/components/form-input";
 import FormSelect from '@/app/components/form-select';
@@ -152,6 +152,20 @@ export default function Form() {
     setSection(section + 1);
   }
 
+  const [success, setSuccess] = useState(false);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    // simula envio
+    setTimeout(() => {
+      setSuccess(true);
+
+      // opcional: remover depois de alguns segundos
+      setTimeout(() => setSuccess(false), 2000);
+    }, 500);
+  }
+
   return (
     <main className={styles.formTemplate}>
       {renderForms()}
@@ -163,9 +177,18 @@ export default function Form() {
       </div>
       ) : (
         <Button
+          onClick={handleSubmit}
           type='submit'
           text='Finalizar'
         />
+      )}
+
+      {success && (
+        <div className={styles.overlay}>
+          <div className={styles.successBox}>
+            <FaCheck className={styles.checkIcon} />
+          </div>
+        </div>
       )}
     </main>
   );

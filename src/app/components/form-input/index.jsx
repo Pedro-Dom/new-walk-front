@@ -6,7 +6,7 @@ export default function FormInput({name = '', type, label, value, onChange}) {
   }
 
   return (
-    <div  className={styles.inputWithLabel}>
+    <div className={styles.inputWithLabel}>
       <label className={styles.labelForm} htmlFor="">{label}</label>
       <input 
         className={styles.inputForm} 
